@@ -95,6 +95,49 @@ public:
     }
 
     //******************************************************
+    
+    void insertAtstart(int value){
+        node* newNode = new node(value);
+        if(head == NULL) {
+            head = tail = newNode;
+            newNode->next = NULL;
+        }
+        else{
+            newNode->next = head;
+            head = newNode;
+        }
+    }
+
+    void insertAtend(int value){
+        node* newNode = new node(value);
+        if(head == nullptr){
+            head = tail = newNode;
+        }else{
+            tail->next = newNode;
+            tail = tail->next;
+        }
+        newNode->next = nullptr;
+        len++;
+    }
+    
+    // problem 05 --> Insert to be sorted.
+
+    void insert_sorted(int value){
+        if(head == NULL || value <= head->data)
+            insertAtstart(value);
+        else if(value >= tail->data)
+            insertAtend(value);
+        else{
+            node* newNode = new node(value);
+            for(node* prev = head, *cur = head; cur; prev = cur, cur = cur->next){
+                if(cur->data >= value){
+                    newNode->next = cur, prev->next = newNode;
+                    len++;
+                    break;
+                }
+            }
+        }
+    }
 };
 
 
